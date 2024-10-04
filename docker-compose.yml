@@ -1,0 +1,30 @@
+version: "3.8"
+
+networks:
+  backend:
+
+services:
+  authjwtdb:
+    container_name: authjwt-db
+    image: mysql:9.0.1-oracle
+    environment:
+      - MYSQL_ROOT_PASSWORD=password@12345#
+    networks:
+      - backend
+    ports:
+      - 8001:3306
+
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    container_name: webapi-backend
+    build:
+      context: .
+      dockerfile: webapi/Dockerfile
+    networks:
+      - backend
+    ports:
+      - 8000:80
+    environment:
+      - DB_HOST=authjwtdb
+      - DB_NAME=dms_authjwtdb
+      - DB_ROOT_PASSWORD=password@12345#
