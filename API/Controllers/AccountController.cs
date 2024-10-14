@@ -33,7 +33,6 @@ namespace API.Controllers
         }
 
         // api/account/register
-
         [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<string>> Register(RegisterDto registerDto)
